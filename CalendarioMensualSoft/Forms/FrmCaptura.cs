@@ -27,6 +27,10 @@ namespace CalendarioMensualSoft
             TxtYear.KeyPress += SoloNumeros_KeyPress;
             txtDiasAMostrar.KeyPress += SoloNumeros_KeyPress;
         }
+
+        /// <summary>
+        /// Crea objeto Mes para llenar el ComboBox de meses.
+        /// </summary>
         private void LlenarComboBox()
         {
             lMeses = new List<Mes>
@@ -50,12 +54,16 @@ namespace CalendarioMensualSoft
             
         }
 
+        /// <summary>
+        /// Cada que cambias el mes, éste revisa la cantidad de días que tiene el mes
+        /// y agrega los días al combo de días.
+        /// </summary>
         private void ActualizarDias()
         {
             if (CBMes.SelectedIndex == -1 || string.IsNullOrWhiteSpace(TxtYear.Text) || !int.TryParse(TxtYear.Text, out int año))
             {
                 CBDias.Enabled = false;
-                ValidarCampos(); // ← asegúrate de deshabilitar el botón si no hay año válido
+                ValidarCampos(); 
                 return;
             }
 
@@ -74,6 +82,12 @@ namespace CalendarioMensualSoft
             ValidarCampos();
         }
 
+        /// <summary>
+        /// Valida la información capturada y si faltó algo, aunque en teoría el botón no se debería habilitar
+        /// si falta información por capturar.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnGenerarCalendario_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(TxtYear.Text) && !string.IsNullOrEmpty(txtDiasAMostrar.Text))
@@ -89,6 +103,10 @@ namespace CalendarioMensualSoft
             }
            
         }
+
+        /// <summary>
+        /// validador de campos.
+        /// </summary>
         private void ValidarCampos()
         {
             bool añoValido = !string.IsNullOrWhiteSpace(TxtYear.Text) && int.TryParse(TxtYear.Text, out _);
@@ -96,12 +114,6 @@ namespace CalendarioMensualSoft
             bool diaSeleccionado = CBDias.SelectedIndex >= 0;
 
             btnGenerarCalendario.Enabled = añoValido && diasMostrarValido && diaSeleccionado;
-        }
-
-
-        private void CBDias_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            btnGenerarCalendario.Enabled = CBDias.SelectedIndex >= 0;
         }
 
         private void SoloNumeros_KeyPress(object sender, KeyPressEventArgs e)

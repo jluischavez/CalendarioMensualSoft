@@ -91,7 +91,6 @@
             this.CBDias.Name = "CBDias";
             this.CBDias.Size = new System.Drawing.Size(52, 23);
             this.CBDias.TabIndex = 3;
-            this.CBDias.SelectedIndexChanged += new System.EventHandler(this.CBDias_SelectedIndexChanged);
             // 
             // GPFechaInicio
             // 
